@@ -21,12 +21,12 @@ while True: #игровой цикл
     for event in pygame.event.get(): #проходимся по событиям
         if event.type == pygame.QUIT: #если нажали на крестик
             pygame.QUIT() #выход из игры
-        if event.type == pygame.KEYDOWN: #если клавиша нажата
-            if event.key == pygame.K_a: #если клавиша 'а'
-                x = x - 5
-            if event.key == pygame.K_d: #если клавиша 'd'
-                x = x + 5
-            if event.key == pygame.K_w: #если клавиша 'w'
-                y = y - 5
-            if event.key == pygame.K_s: #если клавиша 's'
-                y = y + 5
+    keys = pygame.key.get_pressed() #если клавиша 'а'
+    if keys[pygame.K_LEFT]:
+        x = x - 5
+    elif keys[pygame.K_RIGHT]: #если клавиша 'd'
+        x = x + 5
+    elif keys[pygame.K_UP]: #если клавиша 'w'
+        y = y - 5
+    elif keys[pygame.K_DOWN]: #если клавиша 's'
+        y = y + 5
