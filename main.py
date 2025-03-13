@@ -1,32 +1,24 @@
 import pygame
-pygame.init() #инициализация
-window_size=(300, 300) #размеры окна
-screen=pygame.display.set_mode(window_size) #создаём экран с размерами
-pygame.display.set_caption("моя игра") #название окна
-background_color = (0, 0, 225)#заливка фона цветом
-clock = pygame.time.Clock() #создание игрового таймера (фпс)
-color = (0, 0, 130)
-size = 30
-font = pygame.font.SysFont("Arial", size)
-text = font.render("Ваня", True, color)
-screen.blit(text, (50, 50))
-x = 150
+pygame.init()
+window_size=(600, 600)
+win = pygame.display.set_mode(window_size)
+color = 0, 0, 255
+x = 300
 y = 150
-while True: #игровой цикл
-    screen.fill(background_color)  # применение заливки фона
-    r = pygame.Rect(x, y, 100, 50)  # создание прямоугольника
-    clock.tick(40) #частота обновления сцены (40 кдр / с)
-    pygame.draw.rect(screen, color, r)
-    pygame.display.update()  # обновление содержимого экрана
-    for event in pygame.event.get(): #проходимся по событиям
-        if event.type == pygame.QUIT: #если нажали на крестик
-            pygame.QUIT() #выход из игры
-    keys = pygame.key.get_pressed() #если клавиша 'а'
-    if keys[pygame.K_LEFT]:
-        x = x - 5
-    elif keys[pygame.K_RIGHT]: #если клавиша 'd'
-        x = x + 5
-    elif keys[pygame.K_UP]: #если клавиша 'w'
-        y = y - 5
-    elif keys[pygame.K_DOWN]: #если клавиша 's'
-        y = y + 5
+rad = 100
+while True:
+    win.fill((0,0,0))  # применение заливки фона
+    pygame.draw.circle(win, (0, 255, 255), (x, y), rad)
+    pygame.display.update()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.QUIT()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                x = x - 10
+            if event.key == pygame.K_RIGHT:
+                x = x + 10
+            if event.key == pygame.K_UP:
+                y = y - 10
+            if event.key == pygame.K_DOWN:
+                y = y + 10
