@@ -1,30 +1,25 @@
 import pygame
 
-class Food():
-    def __init__(self, a, c, d):
-        self.image = pygame.image.load(a)
-        self.rect = self.get_rect()
-        self.x = c
-        self.y = d
+class Food:
+    def __init__(self, a, c, d): #конструктор, в нём создаются свойства, вызывается при создании объекта
+        self.image = pygame.image.load(a) # self.image - свойство
+        self.rect = self.image.get_rect() # self.rect - свойство объекта, прямоугольник
+        self.x = c # self.x - свойство объекта
+        self.y = d #self.y - свойство объекта
 
-    def draw_image(self):
-        win.blit(image, (0, 0))
+    def draw_image(self): # метод отрисовки
+        win.blit(self.image, (self.x , self.y))
 
-fon = Food()
-
-image = pygame.image.load("кухня.jpg")
-rect = image.get_rect()
+plate = Food("тарелка.png", 450, 550) #создание объекта класса Food
+fon = Food("кухня.jpg", 0, 0)
 pygame.init()
 window_size=(900, 600)
 win = pygame.display.set_mode(window_size)
-color = 0, 0, 255
-x = 300
-y = 150
-rad = 100
 while True:
-    win.blit(image,(0, 0))
-    pygame.draw.circle(win, (0, 255, 255), (x, y), rad)
-    pygame.display.update()
+    clock = pygame.time.Clock()
+    clock.tick(40)
+    fon.draw_image()
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.QUIT()
@@ -37,3 +32,4 @@ while True:
                 y = y - 10
             if event.key == pygame.K_DOWN:
                 y = y + 10
+    pygame.display.update()
