@@ -1,4 +1,5 @@
 import pygame # импортируем библиотеку pygame
+from random import *
 
 class Food: # создаём класс food
     def __init__(self, a, c, d): #конструктор, в нём создаются свойства, вызывается при создании объекта
@@ -19,11 +20,18 @@ class Food: # создаём класс food
     def move_food(self):
         self.rect.y += 10
 
-sushi = Food("суши.png", 30, 5)
-sushi2 = Food("суши.png", 200, 5)
-sushi3 = Food("суши.png", 370, 5)
-sushi4 = Food("суши.png", 540, 5)
-sushi5 = Food("суши.png", 710, 5)
+
+onigiri = Food("анигири.png", 20, randint(-300, 0))
+onigiri2 = Food("анигири.png", 190, randint(-500, 0))
+onigiri3 = Food("анигири.png", 360, randint(-500, 0))
+onigiri4 = Food("анигири.png", 530, randint(-600, 0))
+onigiri5 = Food("анигири.png", 700, randint(-400, 0))
+
+sushi = Food("суши.png", 30, randint(-100, 0))
+sushi2 = Food("суши.png", 200, randint(-100, 0))
+sushi3 = Food("суши.png", 370, randint(-100, 0))
+sushi4 = Food("суши.png", 540, randint(-100,0))
+sushi5 = Food("суши.png", 710, randint(-100,0))
 plate = Food("тарелка.png", 450, 430) #создание объекта класса Food
 fon = Food("кухня3.jpg", 0, 0) #создание объекта класса Food
 pygame.init() # важная строка
