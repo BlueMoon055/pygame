@@ -18,7 +18,7 @@ class Food: # создаём класс food
         win.blit(self.image, (self.rect.x , self.rect.y))
 
     def move_food(self):
-        self.rect.y += 10
+        self.rect.y += 5
 
 
 onigiri = Food("анигири.png", 20, randint(-300, 0))
