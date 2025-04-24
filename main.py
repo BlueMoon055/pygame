@@ -32,6 +32,8 @@ sushi2 = Food("суши.png", 200, randint(-100, 0))
 sushi3 = Food("суши.png", 370, randint(-100, 0))
 sushi4 = Food("суши.png", 540, randint(-100,0))
 sushi5 = Food("суши.png", 710, randint(-100,0))
+food_list = [onigiri, onigiri2, onigiri3, onigiri4, onigiri5, sushi, sushi2, sushi3, sushi4, sushi5]
+
 plate = Food("тарелка.png", 450, 430) #создание объекта класса Food
 fon = Food("кухня3.jpg", 0, 0) #создание объекта класса Food
 pygame.init() # важная строка
@@ -43,17 +45,18 @@ while True: # игровой цикл
     clock.tick(40) #обновление содержимого экрана
     fon.draw_image() # отрисовка фона
     plate.draw_image() # отрисовка тарелки
-    sushi.draw_image()
-    sushi2.draw_image()
-    sushi3.draw_image()
-    sushi4.draw_image()
-    sushi5.draw_image()
+    for i in food_list:
+        i.draw_image()
+        i.move_food()
+        if i.rect.y > 600:
+            i.rect.y = 0
+        if plate.rect.colliderect(i.rect):
+            food_list.remove(i)
+        if food_list == []:
+            pygame.QUIT()
     plate.move_plate() #применение метода движения к тарелки
-    sushi.move_food()
-    sushi2.move_food()
-    sushi3.move_food()
-    sushi4.move_food()
-    sushi5.move_food()
+
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.QUIT()
