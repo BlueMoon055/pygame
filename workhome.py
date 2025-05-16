@@ -1,14 +1,16 @@
+import sys
+
 import pygame # импортируем библиотеку pygame
 from random import *
 
-class Food: # создаём класс food
-    def __init__(self, a, c, d): #конструктор, в нём создаются свойства, вызывается при создании объекта
+class Monster: # создаём класс 
+    def __init__(self, a, c, d): #конструктор, в нём  создаются свойства, вызывается при создании объекта
         self.image = pygame.image.load(a) # self.image - свойство
         self.rect = self.image.get_rect() # self.rect - свойство объекта, прямоугольник
         self.rect.x = c # self.x - свойство объекта
         self.rect.y = d #self.y - свойство объекта
 
-    def move_plate(self): #метод движения тарелки
+    def move_cat(self): #метод движения кота убийцы
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] == True:
             self.rect.x -= 10
@@ -17,48 +19,63 @@ class Food: # создаём класс food
     def draw_image(self): # метод отрисовки
         win.blit(self.image, (self.rect.x , self.rect.y))
 
-    def move_food(self):
-        self.rect.y += 10
+    def move_monsters(self):
+        self.rect.y += 3
 
 
-onigiri = Food("анигири.png", 20, randint(-300, 0))
-onigiri2 = Food("анигири.png", 190, randint(-500, 0))
-onigiri3 = Food("анигири.png", 360, randint(-500, 0))
-onigiri4 = Food("анигири.png", 530, randint(-600, 0))
-onigiri5 = Food("анигири.png", 700, randint(-400, 0))
+monster = Monster("монстр1а.png", 50, randint(-300, 0))
+monster2 = Monster("монстр1а.png", 290, randint(-500, 0))
+monster3 = Monster("монстр1а.png", 560, randint(-500, 0))
+monster4 = Monster("монстр1а.png", 830, randint(-600, 0))
+monster5 = Monster("монстр1а.png", 1200, randint(-400, 0))
 
-sushi = Food("суши.png", 30, randint(-100, 0))
-sushi2 = Food("суши.png", 200, randint(-100, 0))
-sushi3 = Food("суши.png", 370, randint(-100, 0))
-sushi4 = Food("суши.png", 540, randint(-100,0))
-sushi5 = Food("суши.png", 710, randint(-100,0))
-food_list = [onigiri, onigiri2, onigiri3, onigiri4, onigiri5, sushi, sushi2, sushi3, sushi4, sushi5]
+monster6 = Monster("монстр2а.png", 80, randint(-100, 0))
+monster7 = Monster("монстр2а.png", 300, randint(-100, 0))
+monster8 = Monster("монстр2а.png", 770, randint(-100, 0))
+monster9 = Monster("монстр2а.png", 840, randint(-100,0))
+monster10 = Monster("монстр2а.png", 1210, randint(-100,0))
 
-plate = Food("тарелка.png", 450, 430) #создание объекта класса Food
-fon = Food("кухня3.jpg", 0, 0) #создание объекта класса Food
+monster11 = Monster("монстр3а.png", 110, randint(-100, 0))
+monster12 = Monster("монстр3а.png", 450, randint(-100, 0))
+monster13 = Monster("монстр3а.png", 690, randint(-100, 0))
+monster14 = Monster("монстр3а.png", 940, randint(-100,0))
+monster15 = Monster("монстр3а.png", 1250, randint(-100,0))
+monsters_list = [monster, monster2, monster3, monster4, monster5, monster6, monster7, monster8, monster9, monster10, monster11, monster12, monster13, monster14, monster15 ]
+
+catkiller = Monster("кот.png", 450, 430) #создание объекта класса
+fon = Monster("фон1.jpg", 0, 0) #создание объекта класса Monster
 pygame.init() # важная строка
-window_size=(900, 600) #размеры окна
+window_size=(1350, 700) #размеры окна
 win = pygame.display.set_mode(window_size) # создание экрана
 clock = pygame.time.Clock()  # создание фпс
+bombs = []
 
 while True: # игровой цикл
     clock.tick(40) #обновление содержимого экрана
     fon.draw_image() # отрисовка фона
-    plate.draw_image() # отрисовка тарелки
-    for i in food_list:
+    catkiller.draw_image() # отрисовка кота
+    for i in monsters_list:
         i.draw_image()
-        i.move_food()
+        i.move_monsters()
         if i.rect.y > 600:
             i.rect.y = 0
-        if plate.rect.colliderect(i.rect):
-            food_list.remove(i)
-        if food_list == []:
-            pygame.QUIT()
-    plate.move_plate() #применение метода движения к тарелки
+    for i in bombs:
+        i.draw_image()
+        i.rect.y -= 5
+        for j in monsters_list:
+            if i.rect.colliderect(j.rect):
+                monsters_list.remove(j)
+                bombs.remove(i)
+
+        if monsters_list == []:
+            sys.exit()
+    catkiller.move_cat() #применение метода движения к коту
 
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.QUIT()
-
-    pygame.display.update() #обновление содержимого экрана
+            sys.exit()
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+            bomb = Monster("бомба.png",catkiller.rect.x, catkiller.rect.y)
+            bombs.append(bomb)
+    pygame.display.update() #обновление содержимого экрана     
