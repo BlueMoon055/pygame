@@ -3,7 +3,7 @@ import sys
 import pygame # импортируем библиотеку pygame
 from random import *
 
-class Monster: # создаём класс 
+class Monster: # создаём класс
     def __init__(self, a, c, d): #конструктор, в нём  создаются свойства, вызывается при создании объекта
         self.image = pygame.image.load(a) # self.image - свойство
         self.rect = self.image.get_rect() # self.rect - свойство объекта, прямоугольник
@@ -66,8 +66,8 @@ while True: # игровой цикл
             if i.rect.colliderect(j.rect):
                 monsters_list.remove(j)
                 bombs.remove(i)
-
-        if monsters_list == []:
+                break
+        if monsters_list == []: 
             sys.exit()
     catkiller.move_cat() #применение метода движения к коту
 
